@@ -30,7 +30,7 @@ Saturdaymap（周六地图）是一款 **AI 目的地收藏工具**。
 
 ## Docs
 
-* `PRODUCT.md` — 产品定位与核心设计
+* `docs/PRODUCT.md` — 产品定位与核心设计
 * `docs/PRD.md` — MVP 产品需求
 * `docs/DECISIONS.md` — 产品与技术决策记录
 
