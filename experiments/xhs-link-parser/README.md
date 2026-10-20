@@ -58,3 +58,15 @@ python3 probe.py --out results URL [URL ...]
 3. 上海巨富长 City Walk｜14 家店
 
 后续候选服务评估可优先复用已收到的三篇链接，再扩展更多样本。
+
+## TikHub 候选接口（尚未实测）
+
+TikHub [App V2 图文笔记详情接口](https://docs.tikhub.io/420136391e0)声称支持直接传 `xhslink.cn` 分享链接，返回笔记内容与图片列表。接口需要 TikHub 账户和 API Key；请求可能消耗额度，失败请求也可能计费。
+
+`tikhub_probe.py` 每次只调用一篇笔记一次，先从 Case 01 开始。它在终端私密读取 API Key，用请求头传给服务；不会把 Key 写入文件或 Git。原始响应和不含 Key 的摘要只保存在系统临时目录，供人工核查正文、图片和地点是否完整。运行前请先确认账户额度及服务条款。
+
+```bash
+python3 experiments/xhs-link-parser/tikhub_probe.py 01
+```
+
+Case 01 通过人工核查后，再分别运行 `02` 和 `03`。不要将 API Key 粘贴到聊天或写入命令行。
