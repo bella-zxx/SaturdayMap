@@ -18,15 +18,16 @@ Saturdaymap（周六地图）是一款 **AI 目的地收藏工具**。
 
 ## Current Stage
 
-🚧 **Technical Feasibility Validation**
+🚧 **AI Place Extraction Experiment**
 
-当前正在验证第一项关键技术问题：
+小红书链接内容获取已完成三篇真实样本的初步验证：
 
-> 能否仅通过小红书分享链接，稳定获取足够的帖子内容，用于后续 AI 地点提取。
+> TikHub App V2 接口在单地点、多地点和多路线三篇样本上，均返回匹配的正文和图片地址。生产稳定性尚未验证。
 
-实验见：
+当前开始地点提取实验，定义有原文依据的结构化输出和校验规则。实验见：
 
-`experiments/xhs-link-parser/`
+- `experiments/xhs-link-parser/`
+- `experiments/place-extraction/`
 
 ## Docs
 
