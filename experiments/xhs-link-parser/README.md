@@ -24,6 +24,8 @@
 
 因此目前不能认定任何候选方案已经通过。
 
+首个真实样本的重复测试记录见 [RESULTS.md](RESULTS.md)。
+
 ## 基线探针
 
 `probe.py` 使用 Python 标准库：
