@@ -20,11 +20,12 @@
 - 分享短链可以展开到笔记地址。
 - 直接网页获取尚未证明可以稳定取得完整正文和图片。
 - 公开搜索索引尚未证明可以可靠获取内容。
-- SocialDataX / Apify、TikHub、Rnote、xiaohongshu-mcp、RedNote-MCP 尚未完成端到端验证。
+- TikHub App V2 接口使用官方 Python SDK，对三篇真实笔记各调用一次，均取得匹配的标题、正文和图片地址；尚未验证重复调用稳定性、图片 URL 可访问性及 AI 地点提取准确率。
+- SocialDataX / Apify、Rnote、xiaohongshu-mcp、RedNote-MCP 尚未完成端到端验证。
 
-因此目前不能认定任何候选方案已经通过。
+因此 TikHub 已通过这三个样本的内容获取验证，但不能据此认定生产环境成功率。
 
-首个真实样本的重复测试记录见 [RESULTS.md](RESULTS.md)。
+三篇真实样本的测试记录见 [RESULTS.md](RESULTS.md)。
 
 ## 基线探针
 
@@ -59,14 +60,14 @@ python3 probe.py --out results URL [URL ...]
 
 后续候选服务评估可优先复用已收到的三篇链接，再扩展更多样本。
 
-## TikHub 候选接口（尚未实测）
+## TikHub 候选接口（已完成三篇小样本实测）
 
-TikHub [App V2 图文笔记详情接口](https://docs.tikhub.io/420136391e0)声称支持直接传 `xhslink.cn` 分享链接，返回笔记内容与图片列表。接口需要 TikHub 账户和 API Key；请求可能消耗额度，失败请求也可能计费。
+TikHub [App V2 图文笔记详情接口](https://docs.tikhub.io/420136391e0)支持传 `xhslink.cn` 分享链接，返回笔记内容与图片列表。接口需要 TikHub 账户和 API Key；请求可能消耗付费余额，失败请求也可能计费。本项目三篇样本的结果见 [RESULTS.md](RESULTS.md)。
 
-`tikhub_probe.py` 每次只调用一篇笔记一次，先从 Case 01 开始。它在终端私密读取 API Key，用请求头传给服务；不会把 Key 写入文件或 Git。原始响应和不含 Key 的摘要只保存在系统临时目录，供人工核查正文、图片和地点是否完整。运行前请先确认账户额度及服务条款。
+`tikhub_probe.py` 为首次尝试的标准库脚本；该方式被服务方边缘访问层拦截。后续使用 `tikhub_sdk_probe.py`（TikHub 官方 Python SDK），每次只调用一篇笔记一次，设置 `max_retries=0`。它在终端私密读取 API Key，不会把 Key 写入文件或 Git。原始响应和不含 Key 的摘要只保存在系统临时目录。运行前请先确认账户余额及服务条款。
 
 ```bash
-python3 experiments/xhs-link-parser/tikhub_probe.py 01
+python3 experiments/xhs-link-parser/tikhub_sdk_probe.py 01
 ```
 
-Case 01 通过人工核查后，再分别运行 `02` 和 `03`。不要将 API Key 粘贴到聊天或写入命令行。
+三篇样本现已完成初次核查。不要将 API Key 粘贴到聊天或写入命令行。
