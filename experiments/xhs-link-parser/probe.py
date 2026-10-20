@@ -47,7 +47,7 @@ def inspect_initial_state(html: str, final_url: str) -> dict:
     except json.JSONDecodeError as exc:
         return {"present": True, "parse_error": str(exc)}
 
-    note_id_match = re.search(r"/item/([a-f0-9]+)", urlparse(final_url).path)
+    note_id_match = re.search(r"/(?:item|explore)/([a-f0-9]+)", urlparse(final_url).path)
     note_id = note_id_match.group(1) if note_id_match else None
     descriptions = []
     image_lists = []
@@ -100,8 +100,10 @@ def probe(url: str) -> dict:
             page_kind = (
                 "login"
                 if page_path == "/login"
+                else "unavailable"
+                if page_path == "/404"
                 else "note"
-                if "/discovery/item/" in page_path
+                if "/discovery/item/" in page_path or "/explore/" in page_path
                 else "other"
             )
             return {
