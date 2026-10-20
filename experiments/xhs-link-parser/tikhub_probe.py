@@ -41,7 +41,7 @@ def summarize(payload: object) -> dict:
                     candidates["descriptions"].append(
                         {"path": child_path, "length": len(child)}
                     )
-                if key in ("image_list", "imageList", "images") and isinstance(child, list):
+                if key in ("image_list", "images_list", "imageList", "images") and isinstance(child, list):
                     candidates["images"].append({"path": child_path, "count": len(child)})
                 walk(child, child_path)
         elif isinstance(value, list):
