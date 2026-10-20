@@ -166,7 +166,11 @@ def main() -> None:
         result = probe(url)
         path = args.out / f"case-{index:02d}.json"
         path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
-        print(f"{path}: {result.get('status')} {result.get('final_url') or result.get('error')}")
+        print(
+            f"{path}: status={result.get('status')} "
+            f"page={result.get('page_kind', 'error')} "
+            f"error={result.get('error') or 'none'}"
+        )
 
 
 if __name__ == "__main__":
